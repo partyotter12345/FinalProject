@@ -9,7 +9,7 @@ import random,sched,time
 win = GraphWin('The Game', 1000,600)
 win.yUp()
 
-global pointvalue
+
 pointvalue = 0
 
 def begingame():
@@ -21,7 +21,9 @@ def background():
     lvl1.draw(win)
 
     
-def nearenemy(x,y,pointvalue):
+def nearenemy(x,y):
+
+    global pointvalue
 
     clickpoint=win.checkMouse()
     
@@ -109,7 +111,7 @@ def main():
         enemy1 = Image(Point(x,y),"pikasmall.gif")
         enemy1.draw(win)
         time.sleep(1)
-        nearenemy(x,y,pointvalue)
+        nearenemy(x,y)
         enemy1.undraw()
         time.sleep(1)
         pointcounter.undraw()
