@@ -53,6 +53,7 @@ def begingame():
 
 
 
+#Creation of Background
 def background():
     # Draw the sky
     sky = Rectangle(Point(0,0), Point(win.getWidth(), win.getHeight()))
@@ -133,10 +134,6 @@ def background():
     sun = Circle(Point(1000,600), 110)
     sun.setFill("orange")
     sun.setOutline("tomato")
-    sun.draw(win)
-    
-
-    
 
     
 def hitmarker(x,y,win):
@@ -174,6 +171,46 @@ def nearenemy(x,y):
         if abs(cx-ux)<=50 and abs(cy-uy)<=50:
             
             pointvalue +=1
+
+
+            hitmarker(x,y,win)
+            
+            
+            
+            
+            
+            
+            
+        else:
+
+
+            pointvalue +=0
+            missmarker(x,y,win)
+    else:
+
+
+            pointvalue +=0
+            missmarker(x,y,win)
+            
+            
+
+
+
+def nearfriendly(x,y):
+    
+    global pointvalue
+
+    clickpoint=win.checkMouse()
+    
+    if clickpoint != None:
+        cx = x
+        cy = y
+        ux = clickpoint.getX()
+        uy = clickpoint.getY()
+    
+        if abs(cx-ux)<=50 and abs(cy-uy)<=50:
+            
+            pointvalue -=1
 
 
             hitmarker(x,y,win)
@@ -271,6 +308,78 @@ def enemies(center,win,delay):
         mouth.undraw()
         nose.undraw()
 
+
+#Friendly polygon (LEVEL THREE ONLY)
+def friendly(center,win,delay):
+
+    #Friendly head
+    head = Circle(center, 25)
+    head.setFill('green')
+    head.draw(win)
+
+    #Left eye
+    eye1Center = center.clone()
+    eye1Center.move(-10,5)
+    eye1 = Circle(eye1Center,6)
+    eye1.setFill('blue')
+    eye1.draw(win)
+
+    #Right eye
+    eye2center = eye1Center.clone()
+    eye2center.move(20,0)
+    eye2 = Circle(eye2center,6)
+    eye2.setFill('blue')
+    eye2.draw(win)
+
+    #Left eyebrow
+    eyeBrow1End1 = eye1Center.clone()
+    eyeBrow1End1.move(-7,6)
+    eyeBrow1End2 = eyeBrow1End1.clone()
+    eyeBrow1End2.move(16,2)
+    eyeBrow1 = Line(eyeBrow1End1, eyeBrow1End2)
+    eyeBrow1.setWidth(3)
+    eyeBrow1.draw(win)
+
+    #Right eyebrow
+    eyeBrow2End1 = eyeBrow1End2.clone()
+    eyeBrow2End1.move(3,0)
+    eyeBrow2End2 = eyeBrow2End1.clone()
+    eyeBrow2End2.move(16,-6)
+    eyeBrow2 = Line(eyeBrow2End1, eyeBrow2End2)
+    eyeBrow2.setWidth(3)
+    eyeBrow2.draw(win)
+
+    #Mouth
+    mouthCorner1 = center.clone()
+    mouthCorner1.move(-10,-15)
+    mouthCorner2 = mouthCorner1.clone()
+    mouthCorner2.move(20,-5)
+    mouth = Oval(mouthCorner1, mouthCorner2)
+    mouth.setFill('black')
+    mouth.draw(win)
+
+    #Nose
+    nosePoint1 = center.clone()
+    nosePoint1.move(0,-1)
+    nosePoint2 = nosePoint1.clone()
+    nosePoint2.move(-5, -5)
+    nosePoint3 = nosePoint2.clone()
+    nosePoint3.move(10,0)
+    nosePoints = [nosePoint1, nosePoint2, nosePoint3]
+    nose = Polygon(nosePoints)
+    nose.setFill('brown')
+    nose.draw(win)
+
+    time.sleep(delay)
+
+    head.undraw()
+    eye1.undraw()
+    eye2.undraw()
+    eyeBrow1.undraw()
+    eyeBrow2.undraw()
+    mouth.undraw()
+    nose.undraw()
+
         
 def levelonewinmenu(pointvalue,win):
     lvlonewinback = Rectangle(Point(0,0),Point(1000,600))
@@ -313,6 +422,78 @@ def levelonewinmenu(pointvalue,win):
     lvlonewinback.undraw()
 
 
+
+def leveltwomenu(win):
+
+    lvltwomenu = Rectangle(Point(0,0),Point(1000,600))
+    lvltwomenu.setFill('grey')
+    lvltwomenu.draw(win)
+
+    menumessage = Text(Point(500,500), "In level two the invaders will spawn in at random times.")
+    menumessage2 = Text(Point(500,400), "Be quick! Invaders will also disappear faster than in level 1!")
+    menumessage3 = Text(Point(500,300), "Again, you need to capture 8 invaders to advance to the next level")
+    menumessage4 = Text(Point(500,150), "Level two will begin in 5 seconds...")
+
+    menumessage.setSize(26)
+    menumessage.setStyle("bold")
+    menumessage.setTextColor('black')
+    menumessage.draw(win)
+
+    menumessage2.setSize(24)
+    menumessage2.setStyle("bold")
+    menumessage2.setTextColor('black')
+    menumessage2.draw(win)
+
+    menumessage3.setSize(22)
+    menumessage3.setStyle("bold")
+    menumessage3.setTextColor('black')
+    menumessage3.draw(win)
+
+    menumessage4.setSize(32)
+    menumessage4.setStyle("bold")
+    menumessage4.setTextColor('black')
+    menumessage4.draw(win)
+
+    time.sleep(5)
+
+    lvltwomenu.undraw()
+    menumessage.undraw()
+    menumessage2.undraw()
+    menumessage3.undraw()
+    menumessage4.undraw()
+
+def levelthreemenu(win):
+
+    levelthreemenu = Rectangle(Point(0,0),Point(1000,600))
+    levelthreemenu.setFill('grey')
+
+    menu2message = Text(Point(500,500), 'In level three there will be green people trying to help you.')
+    menu2message.setSize(24)
+    menu2message.setStyle("bold")
+    menu2message.setTextColor('black')
+        
+    menu2message2 = Text(Point(500,400), 'Do not click on the friendlies or you will lose 1 point!')
+    menu2message2.setSize(24)
+    menu2message2.setStyle("bold")
+    menu2message2.setTextColor('black')
+    
+    menu2message3 = Text(Point(500,150), "Level three will begin in 5 seconds...")
+    menu2message3.setSize(30)
+    menu2message3.setStyle("bold")
+    menu2message3.setTextColor('black')
+
+    levelthreemenu.draw(win)
+    menu2message.draw(win)
+    menu2message2.draw(win)
+    menu2message3.draw(win)
+
+    time.sleep(5)
+
+    levelthreemenu.undraw()
+    menu2message.undraw()
+    menu2message2.undraw()
+    menu2message3.undraw()
+    
 
 def losemenu(win):
     
@@ -412,12 +593,14 @@ def levelone():
         
 
         
-        
+    pointcounter.undraw()    
         
 
     if pointvalue >= 8:
 
         levelonewinmenu(pointvalue,win)
+
+        leveltwomenu(win)
 
         levelTwo()
         
@@ -458,11 +641,13 @@ def levelTwo():
         time.sleep(1)
         pointcounter.undraw()
 
-    
+    pointcounter.undraw()
 
     if pointvalue >= 8:
 
         leveltwowinmenu()
+
+        levelthreemenu(win)
 
         #levelthree() NOT MADE YET
         
@@ -486,7 +671,23 @@ def levelTwo():
     
 
 def levelthree():
-    pass
+
+    global pointvalue
+    pointvalue = 0
+
+
+    for i in random.randrange(4):
+        if i<=3:
+            x1=random.randint(50,950)
+            y1=random.randint(50,550)
+            centerE = (Point(x1,y1))
+
+            time.sleep(random.randrange(1,3))
+            enemies(centerE,win,0.7)
+            nearenemy(x1,y1) #nearenemy called
+    
+
+    
 
 def main():
 
