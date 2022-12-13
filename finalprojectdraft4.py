@@ -8,24 +8,16 @@ pointvalue = 0
 win = GraphWin('The Game', 1000,600)
 win.yUp()
 
-
-#Creation of Background
-#Avery Update
-def background():
-    #define background
-    lvl1 = Image(Point(500,300),"forestback.gif")
-    lvl1.draw(win)
-    
-#Beginning Menu / Explanation
+#define game menu
 def begingame():
 
     startScreen = Rectangle(Point(0,0), Point(1000,600))
     startScreen.setFill('green')
     startScreen.draw(win)
 
-    startMessage1 = Text(Point(500,450), 'A group of invaders are trying to steal your gold!')
-    startMessage2 = Text(Point(500,375), 'To capture them you must click on them before they disappear')
-    startMessage3 = Text(Point(500,300), 'To advance to the next level, you must capture at least 8 invaders')
+    startMessage1 = Text(Point(500,450), 'A group of INVADERS are trying to steal your gold!')
+    startMessage2 = Text(Point(500,375), 'To fight them off, you must click on them before they disappear')
+    startMessage3 = Text(Point(500,300), 'To advance to the next level, you must capture at least 8 invaders out of 10')
     startMessage4 = Text(Point(500,100), 'Game will begin in 10 seconds...')
 
     startMessage1.setTextColor('black')
@@ -34,8 +26,8 @@ def begingame():
     startMessage4.setTextColor('black')
 
     startMessage1.setSize(22)
-    startMessage2.setSize(22)
-    startMessage3.setSize(22)
+    startMessage2.setSize(16)
+    startMessage3.setSize(16)
     startMessage4.setSize(22)
 
     startMessage1.setStyle('bold')
@@ -48,7 +40,8 @@ def begingame():
     startMessage3.draw(win)
     startMessage4.draw(win)
 
-    time.sleep(2) #change this back to 10 after work
+    enemies(Point(375,505),win,2)
+
     
     startScreen.undraw()
     startMessage1.undraw()
@@ -58,30 +51,37 @@ def begingame():
 
     
 
+
+
+#Creation of Background
+#Avery Update Needed
+def background():
+    #define background
+    lvl1 = Image(Point(500,300),"forestback.gif")
+    lvl1.draw(win)
+    
+
+    
+
     
 def hitmarker(x,y,win):
     hitmarker = Text(Point(x,y), 'Hit!')
     hitmarker.setSize(16)
     hitmarker.setTextColor('green')
     hitmarker.draw(win)
-    hitmarker.wait(0.5)
+    time.sleep(0.5) #DELAY 0.5 SEC
     hitmarker.undraw()
     
-def pointcounterfunction(pointvalue,win):
-    pointcounter = Text(Point(20, 20),pointvalue)
-    pointcounter.setSize(18)
-    pointcounter.setTextColor('white')
-    pointcounter.draw(win)
-    time.sleep(1)
-    pointcounter.undraw()
-
-
 
 def missmarker(x,y,win):
     missmarker = Text(Point(x,y), 'Miss :(')
     missmarker.setSize(16)
     missmarker.setTextColor('red')
     missmarker.draw(win)
+    time.sleep(0.5) #DELAY 0.5 SEC
+    missmarker.undraw()
+
+
 
 #Purpose : To see if user has clicked on an enemy  
 def nearenemy(x,y):
@@ -102,7 +102,7 @@ def nearenemy(x,y):
 
 
             hitmarker(x,y,win)
-            pointcounterfunction(pointvalue,win)
+            
             
             
             
@@ -110,15 +110,19 @@ def nearenemy(x,y):
             
             
         else:
-            pointcounter.undraw()
+
+
             pointvalue +=0
-            pointcounter = Text(Point(20, 20),pointvalue)
-            pointcounter.setSize(18)
+            missmarker(x,y,win)
+    else:
+
+
+            pointvalue +=0
+            missmarker(x,y,win)
             
-            pointcounter.draw(win)
             
-            time.sleep(1)
-            
+
+
 
             
 #enemy polygon          
@@ -182,7 +186,7 @@ def enemies(center,win,delay):
         nose.setFill('brown')
         nose.draw(win)
         
-        time.sleep(delay)
+        time.sleep(delay) #DELAY X SECS
         
         head.undraw()
         eye1.undraw()
@@ -193,9 +197,128 @@ def enemies(center,win,delay):
         nose.undraw()
 
         
+def levelonewinmenu(pointvalue,win):
+    lvlonewinback = Rectangle(Point(0,0),Point(1000,600))
+    lvlonewinback.setFill('white')
+    lvlonewinback.draw(win)
+
+    winmessage = Text(Point(500,500), "Congratulations!")
+    winmessage.setSize(36)
+    winmessage.setStyle("bold")
+    winmessage.setTextColor('yellow')
+
+    winmessage2 = Text(Point(500,400), "You Pass Level One!")
+    winmessage2.setSize(36)
+    winmessage2.setStyle("bold")
+    winmessage2.setTextColor('yellow')
+
+    finalscore = "Your score was " +str(pointvalue)
+
+    winmessage3 = Text(Point(500,300), finalscore)
+    winmessage3.setSize(36)
+    winmessage3.setStyle("bold")
+    winmessage3.setTextColor('red')
+
+    passmessage = Text(Point(500,200), "Wait 5 seconds for level Two!")
+    passmessage.setSize(36)
+    passmessage.setStyle("bold")
+    passmessage.setTextColor('green')
+
+    winmessage.draw(win)
+    winmessage2.draw(win)
+    winmessage3.draw(win)
+    passmessage.draw(win)
+
+    time.sleep(5) #DELAY 5 SECONDS
+
+    winmessage.undraw()
+    winmessage2.undraw()
+    winmessage3.undraw()
+    passmessage.undraw()
+    lvlonewinback.undraw()
+
+
+
+def losemenu(win):
+    
+    lvl1LoseBack = Rectangle(Point (0,0), Point(1000,1000))
+    lvl1LoseBack.setFill('black')
+    lvl1LoseBack.draw(win)         
+    
+    GameOver = Text(Point(500,450), "GAME OVER")
+    GameOver.setSize(36)
+    GameOver.setStyle("bold")
+    GameOver.setTextColor("red")
+    GameOver.draw(win)
+
+    LoseMessage = Text(Point(500,350), "YOU LOSE!")
+    LoseMessage.setSize(36)
+    LoseMessage.setStyle("bold")
+    LoseMessage.setTextColor("red")
+    LoseMessage.draw(win)
+    win.promptClose(win.getWidth()/2, 20)
+
+
+def levelTwowinmenu(pointvalue):
+    lvltwowinback = Rectangle(Point(0,0),Point(1000,1000))
+    lvltwowinback.setFill('grey')
+    lvltwowinback.draw(win)
+
+    win2message = Text(Point(500,500), "Congratulations!")
+    win2message.setSize(36)
+    win2message.setStyle("bold")
+    win2message.setTextColor('yellow')
+
+    win2message2 = Text(Point(500,400), "You Pass Level Two!")
+    win2message2.setSize(36)
+    win2message2.setStyle("bold")
+    win2message2.setTextColor('yellow')
+
+    final2score = "Your score was " +str(pointvalue)
+
+    win2message3 = Text(Point(500,300), final2score)
+    win2message3.setSize(36)
+    win2message3.setStyle("bold")
+    win2message3.setTextColor('red')
+
+    passmessage2 = Text(Point(500,200), "Wait 5 seconds for level Two!")
+    passmessage2.setSize(36)
+    passmessage2.setStyle("bold")
+    passmessage2.setTextColor('green')
+
+
+    
+    win2message.draw(win)
+    win2message2.draw(win)
+    win2message3.draw(win)
+    passmessage2.draw(win)
+
+    time.sleep(5)
+
+    win2message.undraw()
+    win2message2.undraw()
+    win2message3.undraw()
+    passmessage2.undraw()
+    lvltwowinback.undraw()
+        
 def levelone():
+
+    global pointvalue
+    pointvalue = 0
+
+    pointcounter = Text(Point(20, 20),pointvalue)
+    pointcounter.setSize(18)
+    pointcounter.setTextColor('white')
+    pointcounter.draw(win)
+
+    time.sleep(1)
       
     for enemyspawn in list(range(10)):
+
+
+        pointcounter.undraw()
+
+        
 
         #find random x,y
         x=random.randint(50,950)
@@ -205,74 +328,43 @@ def levelone():
         enemies(center,win,1) #random center
         nearenemy(x,y) #nearenemy called
 
-    if pointvalue >= 8:
 
-        lvlonewinback = Rectangle(Point(0,0),Point(1000,600))
-        lvlonewinback.setFill('grey')
-        lvlonewinback.draw(win)
-
-        winmessage = Text(Point(500,500), "Congratulations!")
-        winmessage.setSize(36)
-        winmessage.setStyle("bold")
-        winmessage.setTextColor('yellow')
-
-        winmessage2 = Text(Point(500,400), "You Pass Level One!")
-        winmessage2.setSize(36)
-        winmessage2.setStyle("bold")
-        winmessage2.setTextColor('yellow')
-
-        finalscore = "Your score was " +str(pointvalue)
-
-        winmessage3 = Text(Point(500,300), finalscore)
-        winmessage3.setSize(36)
-        winmessage3.setStyle("bold")
-        winmessage3.setTextColor('red')
-
-        passmessage = Text(Point(500,200), "Wait 5 seconds for level Two!")
-        passmessage.setSize(36)
-        passmessage.setStyle("bold")
-        passmessage.setTextColor('green')
-
+        pointcounter = Text(Point(20, 20),pointvalue)
+        pointcounter.setSize(18)
+        pointcounter.setTextColor('white')
+        pointcounter.draw(win)
+        time.sleep(1)
+        
 
         
-        winmessage.draw(win)
-        winmessage2.draw(win)
-        winmessage3.draw(win)
-        passmessage.draw(win)
+        
+        
 
-        time.sleep(5)
+    if pointvalue >= 8:
 
-        winmessage.undraw()
-        winmessage2.undraw()
-        winmessage3.undraw()
-        passmessage.undraw()
-        lvlonewinback.undraw()      
+        levelonewinmenu(pointvalue,win)
 
         levelTwo()
         
     else:
-        lvl1LoseBack = Rectangle(Point (0,0), Point(1000,1000))
-        lvl1LoseBack.setFill('black')
-        lvl1LoseBack.draw(win)         
         
-        GameOver = Text(Point(500,450), "GAME OVER")
-        GameOver.setSize(36)
-        GameOver.setStyle("bold")
-        GameOver.setTextColor("red")
-        GameOver.draw(win)
-
-        LoseMessage = Text(Point(500,350), "YOU LOSE!")
-        LoseMessage.setSize(36)
-        LoseMessage.setStyle("bold")
-        LoseMessage.setTextColor("red")
-        LoseMessage.draw(win)
-        win.promptClose(win.getWidth()/2, 20)
-        
+        losemenu(win)
 
 
+
+
+
+    
 def levelTwo():
     global pointvalue
     pointvalue = 0
+
+    pointcounter = Text(Point(20, 20),pointvalue)
+    pointcounter.setSize(18)
+    pointcounter.setTextColor('white')
+    pointcounter.draw(win)
+    time.sleep(1)
+    pointcounter.undraw()
 
     for enemyspawn in list(range(10)):
 
@@ -284,49 +376,18 @@ def levelTwo():
         time.sleep(random.randrange(1,3))
         enemies(center,win,0.75)
         nearenemy(x,y) #nearenemy called
+        pointcounter = Text(Point(20, 20),pointvalue)
+        pointcounter.setSize(18)
+        pointcounter.setTextColor('white')
+        pointcounter.draw(win)
+        time.sleep(1)
+        pointcounter.undraw()
+
+    
 
     if pointvalue >= 8:
 
-        lvltwowinback = Rectangle(Point(0,0),Point(1000,1000))
-        lvltwowinback.setFill('grey')
-        lvltwowinback.draw(win)
-
-        win2message = Text(Point(500,500), "Congratulations!")
-        win2message.setSize(36)
-        win2message.setStyle("bold")
-        win2message.setTextColor('yellow')
-
-        win2message2 = Text(Point(500,400), "You Pass Level Two!")
-        win2message2.setSize(36)
-        win2message2.setStyle("bold")
-        win2message2.setTextColor('yellow')
-
-        final2score = "Your score was " +str(pointvalue)
-
-        win2message3 = Text(Point(500,300), final2score)
-        win2message3.setSize(36)
-        win2message3.setStyle("bold")
-        win2message3.setTextColor('red')
-
-        passmessage2 = Text(Point(500,200), "Wait 5 seconds for level Two!")
-        passmessage2.setSize(36)
-        passmessage2.setStyle("bold")
-        passmessage2.setTextColor('green')
-
-
-        
-        win2message.draw(win)
-        win2message2.draw(win)
-        win2message3.draw(win)
-        passmessage2.draw(win)
-
-        time.sleep(5)
-
-        win2message.undraw()
-        win2message2.undraw()
-        win2message3.undraw()
-        passmessage2.undraw()
-        lvltwowinback.undraw()
+        leveltwowinmenu()
 
         #levelthree() NOT MADE YET
         
@@ -347,6 +408,7 @@ def levelTwo():
         LoseMessage.setTextColor("red")
         LoseMessage.draw(win)
         win.promptClose(win.getWidth()/2, 20)
+    
 
 def levelthree():
     pass
