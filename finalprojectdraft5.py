@@ -40,7 +40,7 @@ def begingame():
     startMessage3.draw(win)
     startMessage4.draw(win)
 
-    enemies(Point(375,505),win,2)
+    enemies(Point(375,505),win,10)
 
     
     startScreen.undraw()
@@ -432,7 +432,7 @@ def leveltwomenu(win):
     menumessage = Text(Point(500,500), "In level two the invaders will spawn in at random times.")
     menumessage2 = Text(Point(500,400), "Be quick! Invaders will also disappear faster than in level 1!")
     menumessage3 = Text(Point(500,300), "Again, you need to capture 8 invaders to advance to the next level")
-    menumessage4 = Text(Point(500,150), "Level two will begin in 5 seconds...")
+    menumessage4 = Text(Point(500,150), "Level two will begin in 10 seconds...")
 
     menumessage.setSize(26)
     menumessage.setStyle("bold")
@@ -454,7 +454,7 @@ def leveltwomenu(win):
     menumessage4.setTextColor('black')
     menumessage4.draw(win)
 
-    time.sleep(5)
+    time.sleep(10)
 
     lvltwomenu.undraw()
     menumessage.undraw()
@@ -477,7 +477,7 @@ def levelthreemenu(win):
     menu2message2.setStyle("bold")
     menu2message2.setTextColor('black')
     
-    menu2message3 = Text(Point(500,150), "Level three will begin in 5 seconds...")
+    menu2message3 = Text(Point(500,150), "Level three will begin in 10 seconds...")
     menu2message3.setSize(30)
     menu2message3.setStyle("bold")
     menu2message3.setTextColor('black')
@@ -487,7 +487,7 @@ def levelthreemenu(win):
     menu2message2.draw(win)
     menu2message3.draw(win)
 
-    time.sleep(5)
+    time.sleep(10)
 
     levelthreemenu.undraw()
     menu2message.undraw()
@@ -515,7 +515,7 @@ def losemenu(win):
     win.promptClose(win.getWidth()/2, 20)
 
 
-def levelTwowinmenu(pointvalue):
+def leveltwowinmenu(pointvalue):
     lvltwowinback = Rectangle(Point(0,0),Point(1000,1000))
     lvltwowinback.setFill('grey')
     lvltwowinback.draw(win)
@@ -645,7 +645,7 @@ def levelTwo():
 
     if pointvalue >= 8:
 
-        leveltwowinmenu()
+        leveltwowinmenu(pointvalue)
 
         levelthreemenu(win)
 
