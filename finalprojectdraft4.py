@@ -57,8 +57,10 @@ def begingame():
 #Avery Update Needed
 def background():
     #define background
-    lvl1 = Image(Point(500,300),"forestback.gif")
-    lvl1.draw(win)
+
+    
+    mainbackground = Image(Point(500,300),"forestback.gif")
+    
     
 
     
