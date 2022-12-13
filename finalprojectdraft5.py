@@ -240,73 +240,73 @@ def nearfriendly(x,y):
 #enemy polygon          
 def enemies(center,win,delay):
         
-        #enemy head
-        head = Circle(center, 30)
-        head.setFill('red')
-        head.draw(win)
-                
-        #left eye
-        eye1Center = center.clone()
-        eye1Center.move(-10,5)
-        eye1 = Circle(eye1Center,6)
-        eye1.setFill('green')
-        eye1.draw(win)        
+    #enemy head
+    head = Circle(center, 30)
+    head.setFill('red')
+    head.draw(win)
+            
+    #left eye
+    eye1Center = center.clone()
+    eye1Center.move(-10,5)
+    eye1 = Circle(eye1Center,6)
+    eye1.setFill('green')
+    eye1.draw(win)        
 
-        #right eye
-        eye2center = eye1Center.clone()
-        eye2center.move(20,0)
-        eye2 = Circle(eye2center,6)
-        eye2.setFill('green')
-        eye2.draw(win)       
+    #right eye
+    eye2center = eye1Center.clone()
+    eye2center.move(20,0)
+    eye2 = Circle(eye2center,6)
+    eye2.setFill('green')
+    eye2.draw(win)       
 
-        #left eyebrow
-        eyeBrow1End1 = eye1Center.clone()
-        eyeBrow1End1.move(-7,8)
-        eyeBrow1End2 = eyeBrow1End1.clone()
-        eyeBrow1End2.move(16,-4)
-        eyeBrow1 = Line(eyeBrow1End1, eyeBrow1End2)
-        eyeBrow1.setWidth(3)
-        eyeBrow1.draw(win)
-        
-        #right eyebrow
-        eyeBrow2End1 = eyeBrow1End2.clone()
-        eyeBrow2End1.move(3,0)
-        eyeBrow2End2 = eyeBrow2End1.clone()
-        eyeBrow2End2.move(16,4)
-        eyeBrow2 = Line(eyeBrow2End1, eyeBrow2End2)
-        eyeBrow2.setWidth(3)
-        eyeBrow2.draw(win)
-        
-        #mouth
-        mouthCorner1 = center.clone()
-        mouthCorner1.move(-10,-15)
-        mouthCorner2 = mouthCorner1.clone()
-        mouthCorner2.move(20,-5)
-        mouth = Oval(mouthCorner1, mouthCorner2)
-        mouth.setFill('black')
-        mouth.draw(win)
-        
-        #nose
-        nosePoint1 = center.clone()
-        nosePoint1.move(0,-1)
-        nosePoint2 = nosePoint1.clone()
-        nosePoint2.move(-5, -5)
-        nosePoint3 = nosePoint2.clone()
-        nosePoint3.move(10,0)
-        nosePoints = [nosePoint1, nosePoint2, nosePoint3]   
-        nose = Polygon(nosePoints)
-        nose.setFill('brown')
-        nose.draw(win)
-        
-        time.sleep(delay) #DELAY X SECS
-        
-        head.undraw()
-        eye1.undraw()
-        eye2.undraw()
-        eyeBrow1.undraw()
-        eyeBrow2.undraw()
-        mouth.undraw()
-        nose.undraw()
+    #left eyebrow
+    eyeBrow1End1 = eye1Center.clone()
+    eyeBrow1End1.move(-7,8)
+    eyeBrow1End2 = eyeBrow1End1.clone()
+    eyeBrow1End2.move(16,-4)
+    eyeBrow1 = Line(eyeBrow1End1, eyeBrow1End2)
+    eyeBrow1.setWidth(3)
+    eyeBrow1.draw(win)
+    
+    #right eyebrow
+    eyeBrow2End1 = eyeBrow1End2.clone()
+    eyeBrow2End1.move(3,0)
+    eyeBrow2End2 = eyeBrow2End1.clone()
+    eyeBrow2End2.move(16,4)
+    eyeBrow2 = Line(eyeBrow2End1, eyeBrow2End2)
+    eyeBrow2.setWidth(3)
+    eyeBrow2.draw(win)
+    
+    #mouth
+    mouthCorner1 = center.clone()
+    mouthCorner1.move(-10,-15)
+    mouthCorner2 = mouthCorner1.clone()
+    mouthCorner2.move(20,-5)
+    mouth = Oval(mouthCorner1, mouthCorner2)
+    mouth.setFill('black')
+    mouth.draw(win)
+    
+    #nose
+    nosePoint1 = center.clone()
+    nosePoint1.move(0,-1)
+    nosePoint2 = nosePoint1.clone()
+    nosePoint2.move(-5, -5)
+    nosePoint3 = nosePoint2.clone()
+    nosePoint3.move(10,0)
+    nosePoints = [nosePoint1, nosePoint2, nosePoint3]   
+    nose = Polygon(nosePoints)
+    nose.setFill('brown')
+    nose.draw(win)
+    
+    time.sleep(delay) #DELAY X SECS
+    
+    head.undraw()
+    eye1.undraw()
+    eye2.undraw()
+    eyeBrow1.undraw()
+    eyeBrow2.undraw()
+    mouth.undraw()
+    nose.undraw()
 
 
 #Friendly polygon (LEVEL THREE ONLY)
@@ -649,7 +649,7 @@ def levelTwo():
 
         levelthreemenu(win)
 
-        #levelthree() NOT MADE YET
+        levelthree()
         
     else:
         lvl2LoseBack = Rectangle(Point (0,0), Point(1000,1000))
@@ -675,18 +675,59 @@ def levelthree():
     global pointvalue
     pointvalue = 0
 
+    # Set the minimum and maximum number of friendlies and enemies
+    min_friendlies = 3
+    max_friendlies = 7
+    min_enemies = 12
+    max_enemies = 20
 
-    for i in random.randrange(4):
-        if i<=3:
-            x1=random.randint(50,950)
-            y1=random.randint(50,550)
-            centerE = (Point(x1,y1))
+    # Generate a random number of friendlies and enemies within the specified range
+    num_friendlies = random.randint(min_friendlies, max_friendlies)
+    num_enemies = random.randint(min_enemies, max_enemies)
 
-            time.sleep(random.randrange(1,3))
-            enemies(centerE,win,0.7)
-            nearenemy(x1,y1) #nearenemy called
-    
+    # Create the list of friendlies and enemies
+    friendlies = ["friendly"  for i in range(1, num_friendlies + 1)]
+    enemiesList = ["enemy"  for i in range(1, num_enemies + 1)]
 
+    # Combine the friendlies and enemies into a single list
+    characters = friendlies + enemiesList
+
+    # Shuffle the list of characters to put them in a random order
+    random.shuffle(characters)
+
+            
+    pointcounter = Text(Point(20, 20),pointvalue)
+    pointcounter.setSize(18)
+    pointcounter.setTextColor('white')
+    pointcounter.draw(win)
+    time.sleep(1)
+    pointcounter.undraw()
+
+    for enemyspawn in characters:
+
+        #find random x,y
+        x=random.randint(50,950)
+        y=random.randint(50,550)
+        center = (Point(x,y))
+
+        time.sleep(random.randrange(1,3))
+        if enemyspawn == "friendly":
+            friendly(center,win,0.75)
+            nearfriendly(x,y)
+            print(enemyspawn)
+        else:
+            enemies(center,win,0.75)
+            nearenemy(x,y) #nearenemy called
+            print(enemyspawn)
+            
+        pointcounter = Text(Point(20, 20),pointvalue)
+        pointcounter.setSize(18)
+        pointcounter.setTextColor('white')
+        pointcounter.draw(win)
+        time.sleep(1)
+        pointcounter.undraw()
+
+    pointcounter.undraw()
     
 
 def main():
@@ -695,6 +736,5 @@ def main():
     background()
     levelone()
 
-    
          
 main()
