@@ -484,7 +484,7 @@ def leveltwowinmenu(pointvalue):
     win2message3.setStyle("bold")
     win2message3.setTextColor('red')
 
-    passmessage2 = Text(Point(500,200), "Wait 5 seconds for level Two!")
+    passmessage2 = Text(Point(500,200), "Wait 5 seconds for level Three!")
     passmessage2.setSize(36)
     passmessage2.setStyle("bold")
     passmessage2.setTextColor('green')
